@@ -1,43 +1,37 @@
-# Krystalic Website
+# 🎵 KRYSTALIC Official Website
 
-A modern, responsive website for the hardstyle artist Krystalic. Built with HTML, CSS, and JavaScript, featuring:
+[![Live Website](https://img.shields.io/badge/Visit-Live%20Website-blueviolet)](https://krystalicmusic.vercel.app/)
 
-- Animated homepage with minimalistic design
-- Music page with Spotify integration
-- About page with artist information
-- Responsive design for all devices
-- Purple-themed UI with modern animations
+A modern, responsive website for the Hardstyle producer KRYSTALIC, featuring a sleek dark theme and interactive elements.
 
-## Features
+## ✨ Features
 
-- Real-time Spotify track previews
-- Animated beat visualizer
-- Minimalistic circular animations
-- Responsive layout
-- Modern UI/UX design
+- 🌙 Dark-themed design with purple accents
+- 🎨 Smooth animations and transitions
+- 🎵 Integrated Spotify player
+- 📱 Fully responsive layout
+- 💫 Interactive UI elements
+- 🔗 Social media integration
 
-## Technologies Used
+## 🎧 About KRYSTALIC
+
+Hey! I'm Krystalic from the duo Vast Duality. I am producing Euphoric Hardstyle & Hard Dance and I hope you will follow along the journey where I'll be releasing a lot of unique, refreshing and exciting sounds. I've always strived to try steer away from the mainstream and make what we never hear! Big thanks to those who follow me and support me, I truly appreciate it.
+
+## 🔗 Quick Links
+
+- [Live Website](https://krystalicmusic.vercel.app/)
+- [SoundCloud](https://soundcloud.com/officialkrystalic)
+- [Instagram](https://instagram.com/krystalic)
+- [X (Twitter)](https://twitter.com/krystalic)
+
+## 🛠️ Built With
 
 - HTML5
-- CSS3 (with animations)
+- CSS3
 - JavaScript
+- Framer Motion
 - Spotify Web API
-- Google Fonts
 
-## Setup
+## 📄 License
 
-1. Clone the repository
-2. Open `index.html` in your browser
-3. No build process required - static HTML/CSS/JS
-
-## Development
-
-To modify the website:
-
-1. Edit HTML files in the root and pages directory
-2. Modify styles in `styles.css`
-3. Update JavaScript in `script.js`
-
-## License
-
-© 2024 KRYSTALIC. All rights reserved. 
+© 2025 KRYSTALIC. All rights reserved. 

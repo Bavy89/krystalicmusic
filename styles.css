@@ -45,8 +45,13 @@ nav {
 .logo {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--text-color);
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--primary-color);
 }
 
 .nav-links {
@@ -153,6 +158,70 @@ footer {
     transform: translateY(0);
 }
 
+/* Navigation Updates */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0.5rem;
+    z-index: 1000;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(25, 0, 51, 0.98) 0%, rgba(13, 10, 28, 0.98) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+.mobile-nav .nav-links {
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.mobile-nav .nav-links a {
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Hamburger Animation */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-title {
@@ -168,6 +237,14 @@ footer {
     }
     
     .nav-links {
-        gap: 1rem;
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .mobile-nav .nav-links {
+        display: flex;
     }
 } 

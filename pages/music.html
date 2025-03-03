@@ -55,6 +55,7 @@
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .latest-release {
@@ -173,13 +174,33 @@
             .spotify-preview {
                 margin: 1rem auto;
             }
+
+            .spotify-profile-link {
+                display: flex;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+                width: fit-content;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-content">
-            <div class="logo">KRYSTALIC</div>
+            <a href="../index.html" class="logo">KRYSTALIC</a>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="music.html" class="active">MUSIC</a></li>
+            </ul>
+        </div>
+        <div class="mobile-nav">
             <ul class="nav-links">
                 <li><a href="../index.html">HOME</a></li>
                 <li><a href="about.html">ABOUT</a></li>
@@ -211,7 +232,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 KRYSTALIC. All rights reserved.</p>
+        <p>&copy; 2025 KRYSTALIC. All rights reserved.</p>
     </footer>
 
     <script>
