@@ -173,7 +173,7 @@ footer {
     width: 25px;
     height: 2px;
     background-color: var(--text-color);
-    margin: 5px 0;
+    margin: 8px 0;
     transition: all 0.3s ease;
 }
 
@@ -215,11 +215,7 @@ footer {
 }
 
 .hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Responsive Design */
