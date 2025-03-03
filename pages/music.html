@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music - KRYSTALIC</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .music-container {
+            min-height: calc(100vh - var(--nav-height));
+            background: linear-gradient(135deg, rgba(25, 0, 51, 0.95) 0%, rgba(13, 10, 28, 0.95) 100%);
+            padding: 4rem 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .spotify-profile-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: #1DB954;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 500px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .spotify-profile-link:hover {
+            background: #1ed760;
+            transform: scale(1.05);
+        }
+
+        .spotify-profile-link svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .latest-release {
+            background: rgba(13, 10, 28, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+        
+        .release-info {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+        
+        .release-cover {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .release-details {
+            flex: 1;
+        }
+        
+        .release-details h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .spotify-preview {
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 450px;
+            height: 80px;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color);
+        }
+
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+        }
+
+        .release-card {
+            background: rgba(13, 10, 28, 0.7);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .release-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .release-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .release-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .release-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        h1, h2 {
+            animation: fadeInUp 0.8s ease forwards;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .release-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .release-cover {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .music-container {
+                padding: 2rem 1rem;
+            }
+
+            .spotify-preview {
+                margin: 1rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">KRYSTALIC</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="music.html" class="active">MUSIC</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="music-container">
+            <div class="content-wrapper">
+                <a href="https://open.spotify.com/artist/58nAeyetvPztEQw79pXVoN" target="_blank" class="spotify-profile-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    Visit on Spotify
+                </a>
+                <h1>LATEST RELEASE</h1>
+                <div class="latest-release" id="latest-release">
+                    <div class="loading">Loading latest release...</div>
+                </div>
+
+                <h2>ALL RELEASES</h2>
+                <div class="releases-grid" id="all-releases">
+                    <div class="loading">Loading releases...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 KRYSTALIC. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to get Spotify track ID from album
+        async function getFirstTrackId(albumId) {
+            try {
+                // Get a fresh token if needed
+                const token = await getSpotifyToken();
+                localStorage.setItem('spotify_token', token);
+
+                const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                const data = await response.json();
+                return data.items[0]?.id;
+            } catch (error) {
+                console.error('Error fetching track:', error);
+                return null;
+            }
+        }
+
+        // Function to update the UI with release data
+        async function updateLatestRelease(release) {
+            const container = document.getElementById('latest-release');
+            if (!release) {
+                container.innerHTML = '<p>Could not load latest release.</p>';
+                return;
+            }
+
+            try {
+                // Get the album ID from the Spotify URL
+                const albumId = release.external_urls.spotify.split('/').pop();
+                const trackId = await getFirstTrackId(albumId);
+                const spotifyEmbed = trackId ? 
+                    `<iframe class="spotify-preview" src="https://open.spotify.com/embed/track/${trackId}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>` 
+                    : '';
+
+                container.innerHTML = `
+                    <div class="release-info">
+                        <img src="${release.images[0].url}" alt="${release.name}" class="release-cover">
+                        <div class="release-details">
+                            <h3>${release.name}</h3>
+                            <p class="release-date">Released: ${new Date(release.release_date).toLocaleDateString()}</p>
+                            ${spotifyEmbed}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error updating latest release:', error);
+                container.innerHTML = '<p>Error loading release data.</p>';
+            }
+        }
+
+        // Function to update the UI with all releases
+        async function updateAllReleases(releases) {
+            const container = document.getElementById('all-releases');
+            if (!releases || releases.length === 0) {
+                container.innerHTML = '<p>No releases found.</p>';
+                return;
+            }
+
+            try {
+                const releasesHtml = await Promise.all(releases.map(async release => {
+                    const albumId = release.external_urls.spotify.split('/').pop();
+                    const trackId = await getFirstTrackId(albumId);
+                    const spotifyEmbed = trackId ? 
+                        `<iframe class="spotify-preview" src="https://open.spotify.com/embed/track/${trackId}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>` 
+                        : '';
+
+                    return `
+                        <div class="release-card">
+                            <img src="${release.images[0].url}" alt="${release.name}">
+                            <h3>${release.name}</h3>
+                            <div class="release-date">Released: ${new Date(release.release_date).toLocaleDateString()}</div>
+                            ${spotifyEmbed}
+                        </div>
+                    `;
+                }));
+
+                container.innerHTML = releasesHtml.join('');
+            } catch (error) {
+                console.error('Error updating all releases:', error);
+                container.innerHTML = '<p>Error loading releases.</p>';
+            }
+        }
+
+        // Fetch and display releases when the page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const releases = await getAllReleases();
+                if (releases && releases.length > 0) {
+                    updateLatestRelease(releases[0]);
+                    updateAllReleases(releases);
+                }
+            } catch (error) {
+                console.error('Error initializing page:', error);
+                document.getElementById('latest-release').innerHTML = '<p>Error loading releases.</p>';
+                document.getElementById('all-releases').innerHTML = '<p>Error loading releases.</p>';
+            }
+        });
+    </script>
+    <script src="../script.js"></script>
+</body>
+</html> 

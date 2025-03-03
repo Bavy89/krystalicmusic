@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - KRYSTALIC</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .about-container {
+            min-height: calc(100vh - var(--nav-height));
+            background: linear-gradient(135deg, rgba(25, 0, 51, 0.95) 0%, rgba(13, 10, 28, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .about-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(13, 10, 28, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-text {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.8;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 0.3s;
+        }
+
+        .monthly-listeners {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .monthly-listeners:hover {
+            transform: scale(1.05);
+        }
+
+        .monthly-listeners span:first-child {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .monthly-listeners-count {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: bold;
+        }
+
+        .followers-count {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .followers-count strong {
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-color);
+        }
+
+        .contact-section {
+            margin-top: 3rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 0.6s;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 1rem;
+            }
+
+            .about-content {
+                padding: 1.5rem;
+            }
+
+            .stats-container {
+                margin-top: 1.5rem;
+                gap: 1rem;
+            }
+
+            .monthly-listeners {
+                padding: 0.6rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .about-content {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">KRYSTALIC</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="about.html" class="active">ABOUT</a></li>
+                <li><a href="music.html">MUSIC</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="about-container">
+            <h1 class="about-title">About</h1>
+            <div class="about-content">
+                <p class="about-text">
+                    Hey! I'm Krystalic from the duo Vast Duality. I am producing Euphoric Hardstyle & Hard Dance, bringing unique and refreshing sounds to the scene.
+                </p>
+                <p class="about-text">
+                    I've always strived to steer away from the mainstream and create what we never hear! My passion lies in pushing the boundaries of conventional sound design and creating immersive musical experiences.
+                </p>
+                <p class="about-text">
+                    Join me on this journey as I continue to release unique and exciting sounds. Big thanks to all my followers and supporters - your enthusiasm and support mean the world to me!
+                </p>
+                <div class="stats-container">
+                    <div class="monthly-listeners">
+                        <span>Monthly Listeners</span>
+                        <span class="monthly-listeners-count">5,774</span>
+                    </div>
+                    <div class="followers-count">
+                        <strong>357</strong> Followers
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2 class="contact-title">Contact</h2>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 KRYSTALIC. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
