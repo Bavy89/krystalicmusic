@@ -849,6 +849,145 @@
         // Start fetching videos when page loads
         document.addEventListener('DOMContentLoaded', fetchVideos);
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = new Audio();
+            let currentTrack = null;
+            let isPlaying = false;
+
+            // Enable background playback
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('play', () => {
+                    playTrack(currentTrack);
+                });
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    pauseTrack();
+                });
+            }
+
+            // Add touch event listeners for better mobile response
+            const trackCards = document.querySelectorAll('.track-card');
+            trackCards.forEach(card => {
+                const playButton = card.querySelector('.control-button');
+                if (playButton) {
+                    // Use touchstart for immediate response on mobile
+                    playButton.addEventListener('touchstart', (e) => {
+                        e.preventDefault(); // Prevent double-firing
+                        handlePlayClick(card);
+                    });
+                    // Keep click for desktop
+                    playButton.addEventListener('click', () => {
+                        handlePlayClick(card);
+                    });
+                }
+            });
+
+            function handlePlayClick(card) {
+                const audioSrc = card.dataset.audioSrc;
+                if (!audioSrc) return;
+
+                if (currentTrack === card) {
+                    if (isPlaying) {
+                        pauseTrack();
+                    } else {
+                        playTrack(card);
+                    }
+                } else {
+                    if (currentTrack) {
+                        currentTrack.classList.remove('playing');
+                    }
+                    currentTrack = card;
+                    playTrack(card);
+                }
+            }
+
+            function playTrack(card) {
+                if (!card) return;
+
+                const audioSrc = card.dataset.audioSrc;
+                if (audioPlayer.src !== audioSrc) {
+                    audioPlayer.src = audioSrc;
+                }
+
+                // Add loading state
+                card.classList.add('loading');
+                
+                // Promise-based play for better error handling
+                const playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            isPlaying = true;
+                            card.classList.add('playing');
+                            card.classList.remove('loading');
+                            
+                            // Update media session metadata for background playback
+                            if ('mediaSession' in navigator) {
+                                navigator.mediaSession.metadata = new MediaMetadata({
+                                    title: card.querySelector('.track-title').textContent,
+                                    artist: 'KRYSTALIC',
+                                    artwork: [
+                                        { src: card.querySelector('.track-thumbnail').src }
+                                    ]
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Playback failed:', error);
+                            card.classList.remove('loading', 'playing');
+                        });
+                }
+            }
+
+            function pauseTrack() {
+                audioPlayer.pause();
+                isPlaying = false;
+                if (currentTrack) {
+                    currentTrack.classList.remove('playing');
+                }
+            }
+
+            // Update progress bar
+            audioPlayer.addEventListener('timeupdate', () => {
+                if (currentTrack) {
+                    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    const progressBar = currentTrack.querySelector('.timeline-progress');
+                    if (progressBar) {
+                        progressBar.style.width = `${progress}%`;
+                    }
+                }
+            });
+
+            // Handle track completion
+            audioPlayer.addEventListener('ended', () => {
+                isPlaying = false;
+                if (currentTrack) {
+                    currentTrack.classList.remove('playing');
+                }
+            });
+
+            // Add loading state class
+            const style = document.createElement('style');
+            style.textContent = `
+                .track-card.loading .control-button {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
+                .track-card .control-button {
+                    -webkit-tap-highlight-color: transparent;
+                }
+                @media (max-width: 768px) {
+                    .control-button {
+                        padding: 0.8rem;
+                    }
+                    .timeline {
+                        height: 6px;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
     <script src="../script.js"></script>
 </body>
 </html> 
