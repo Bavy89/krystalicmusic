@@ -1,7 +1,3 @@
-// Spotify API Configuration
-const clientId = 'd64b1697bba9461e9729c2dc50cf8024';
-const clientSecret = 'cf051dfcfb394d6a93c82853079d4870';
-
 // Animation for elements with fade-in class
 const observerOptions = {
     threshold: 0.1
@@ -36,66 +32,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hamburger Menu Functionality
     const hamburger = document.querySelector('.hamburger');
     const mobileNav = document.querySelector('.mobile-nav');
+    const body = document.body;
 
     if (hamburger && mobileNav) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileNav.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+            body.style.overflow = body.style.overflow === 'hidden' ? '' : 'hidden';
         });
 
         // Close mobile menu when clicking a link
-        document.querySelectorAll('.mobile-nav .nav-links a').forEach(link => {
+        const mobileLinks = document.querySelectorAll('.mobile-nav .nav-links a');
+        mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 mobileNav.classList.remove('active');
-                document.body.style.overflow = '';
+                body.style.overflow = '';
             });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileNav.classList.contains('active') && 
+                !mobileNav.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            }
         });
     }
 });
-
-// Get Spotify access token
-async function getSpotifyToken() {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-        },
-        body: 'grant_type=client_credentials'
-    });
-    const data = await response.json();
-    return data.access_token;
-}
-
-// Fetch all releases
-async function getAllReleases() {
-    try {
-        const token = await getSpotifyToken();
-        const response = await fetch('https://api.spotify.com/v1/artists/58nAeyetvPztEQw79pXVoN/albums?limit=50', {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        });
-        const data = await response.json();
-        return data.items;
-    } catch (error) {
-        console.error('Error fetching releases:', error);
-        return null;
-    }
-}
-
-// Fetch latest release
-async function getLatestRelease() {
-    try {
-        const releases = await getAllReleases();
-        return releases ? releases[0] : null;
-    } catch (error) {
-        console.error('Error fetching latest release:', error);
-        return null;
-    }
-}
 
 // Add parallax effect to hero section
 window.addEventListener('scroll', () => {

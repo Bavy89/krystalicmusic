@@ -18,38 +18,25 @@
             }
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at center, 
+                rgba(10, 6, 20, 0.9) 0%, 
+                rgba(5, 3, 10, 0.95) 100%
+            );
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+        }
+
         .music-container {
             min-height: calc(100vh - var(--nav-height));
-            background: linear-gradient(135deg, rgba(25, 0, 51, 0.95) 0%, rgba(13, 10, 28, 0.95) 100%);
+            background: radial-gradient(circle at center, 
+                rgba(10, 6, 20, 0.9) 0%, 
+                rgba(5, 3, 10, 0.95) 100%
+            );
             padding: 4rem 2rem;
             animation: fadeInUp 0.8s ease forwards;
-        }
-        
-        .spotify-profile-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: #1DB954;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 500px;
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-        }
-
-        .spotify-profile-link:hover {
-            background: #1ed760;
-            transform: scale(1.05);
-        }
-
-        .spotify-profile-link svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
         }
         
         .content-wrapper {
@@ -58,130 +45,392 @@
             text-align: center;
         }
 
-        .latest-release {
-            background: rgba(13, 10, 28, 0.7);
+        .platform-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .platform-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 500px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .soundcloud-link {
+            background: linear-gradient(135deg, #d4973b 0%, #b05c1d 100%);
+        }
+
+        .youtube-link {
+            background: linear-gradient(135deg, #c93f0c 0%, #8a2b0a 100%);
+        }
+
+        .platform-link:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+            box-shadow: 0 0 20px rgba(255, 146, 43, 0.3);
+        }
+
+        .platform-link svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .music-section {
+            background: rgba(20, 12, 40, 0.7);
             border-radius: 10px;
             padding: 2rem;
-            margin-bottom: 4rem;
-            border: 1px solid rgba(138, 43, 226, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(212, 151, 59, 0.2);
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards 0.2s;
-        }
-        
-        .release-info {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-            margin-top: 2rem;
-        }
-        
-        .release-cover {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        
-        .release-details {
-            flex: 1;
-        }
-        
-        .release-details h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
         }
 
-        .spotify-preview {
-            margin-top: 1rem;
+        .soundcloud-embed {
             width: 100%;
-            max-width: 450px;
-            height: 80px;
+            height: 300px;
             border: none;
-            border-radius: 8px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-color);
-        }
-
-        .releases-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem 0;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards 0.4s;
-        }
-
-        .release-card {
-            background: rgba(13, 10, 28, 0.7);
             border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .youtube-tracks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .track-card {
+            background: rgba(20, 12, 40, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(212, 151, 59, 0.1);
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 151, 59, 0.3);
+            box-shadow: 0 5px 20px rgba(212, 151, 59, 0.1);
+        }
+
+        .track-thumbnail {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+
+        .playing .track-thumbnail {
+            filter: brightness(0.7);
+        }
+
+        .track-info {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .track-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .track-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+
+        .track-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(20, 12, 40, 0.9);
+            border-top: 1px solid rgba(212, 151, 59, 0.2);
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
         }
 
-        .release-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
+        .control-button:hover {
+            transform: scale(1.1);
+            color: #d4973b;
         }
 
-        .release-card img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 1rem;
+        .control-button svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
-        .release-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
+        .timeline {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 151, 59, 0.2);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
         }
 
-        .release-date {
+        .timeline-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #d4973b 0%, #b05c1d 100%);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .timeline:hover .timeline-progress {
+            background: linear-gradient(90deg, #e5a84c 0%, #c16928 100%);
+        }
+
+        .duration {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.8);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .track-card:hover .play-button {
+            opacity: 1;
+        }
+
+        .playing .play-button {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .playing .play-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .playing .play-button svg path {
+            d: path('M6 4h4v16H6zm8 0h4v16h-4z');
+        }
+
+        .play-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        #player-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 10, 28, 0.95);
+            padding: 0.5rem 1rem;
+            display: none;
+            z-index: 1000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            height: 60px;
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
             font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-            color: var(--text-color);
+        }
+
+        .track-title-playing {
+            flex: 1;
+            margin-right: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .close-player {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .close-player:hover {
+            color: white;
         }
 
         h1, h2 {
             animation: fadeInUp 0.8s ease forwards;
-            color: var(--text-color);
+            color: #d4973b;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(212, 151, 59, 0.3);
+        }
+
+        .youtube-embed {
+            position: relative;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
         }
 
+        .youtube-embed iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+        }
+
         @media (max-width: 768px) {
-            .release-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .release-cover {
-                width: 100%;
-                max-width: 300px;
-            }
-
             .music-container {
                 padding: 2rem 1rem;
             }
 
-            .spotify-preview {
-                margin: 1rem auto;
+            .platform-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
             }
 
-            .spotify-profile-link {
-                display: flex;
+            .platform-link {
+                width: 100%;
+                max-width: 300px;
                 justify-content: center;
-                margin-left: auto;
-                margin-right: auto;
-                width: fit-content;
             }
+
+            .youtube-tracks {
+                grid-template-columns: 1fr;
+            }
+
+            .play-button {
+                opacity: 1;
+                width: 50px;
+                height: 50px;
+            }
+
+            .youtube-embed iframe {
+                height: 300px;
+            }
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(212, 151, 59, 0.7);
+            font-style: italic;
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(201, 63, 12, 0.7);
+            font-style: italic;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(212, 151, 59, 0.1);
+            z-index: 10;
+        }
+
+        .mobile-nav {
+            background: rgba(0, 0, 0, 0.98);
+        }
+
+        /* Navigation Updates */
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
         }
     </style>
 </head>
@@ -189,43 +438,58 @@
     <nav>
         <div class="nav-content">
             <a href="../index.html" class="logo">KRYSTALIC</a>
-            <button class="hamburger" aria-label="Menu">
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="music.html" class="active">Music</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
                 <span></span>
                 <span></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="../index.html">HOME</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="music.html" class="active">MUSIC</a></li>
-            </ul>
-        </div>
-        <div class="mobile-nav">
-            <ul class="nav-links">
-                <li><a href="../index.html">HOME</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="music.html" class="active">MUSIC</a></li>
-            </ul>
+                <span></span>
+            </div>
         </div>
     </nav>
+    <div class="mobile-nav">
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="music.html" class="active">Music</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
 
     <main>
         <div class="music-container">
             <div class="content-wrapper">
-                <a href="https://open.spotify.com/artist/58nAeyetvPztEQw79pXVoN" target="_blank" class="spotify-profile-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                    </svg>
-                    Visit on Spotify
-                </a>
-                <h1>LATEST RELEASE</h1>
-                <div class="latest-release" id="latest-release">
-                    <div class="loading">Loading latest release...</div>
+                <div class="platform-links">
+                    <a href="https://soundcloud.com/officialkrystalic" target="_blank" class="platform-link soundcloud-link">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.04-.1-.09-.1m-.899.604c-.051 0-.092.047-.1.1l-.194 1.55.194 1.5c.008.059.049.1.1.1.05 0 .089-.04.099-.1l.227-1.5-.227-1.55c-.01-.053-.049-.1-.1-.1m1.83-1.229c-.061 0-.113.047-.12.112l-.217 2.766.217 2.727c.007.065.059.112.12.112.061 0 .112-.047.12-.112l.248-2.727-.248-2.766c-.008-.065-.059-.112-.12-.112m.93-.002c-.071 0-.132.047-.14.133l-.207 2.747.207 2.706c.008.086.069.133.14.133.07 0 .131-.047.14-.133l.236-2.706-.236-2.747c-.009-.086-.07-.133-.14-.133m.943.001c-.082 0-.152.055-.16.151l-.195 2.728.195 2.688c.008.096.078.151.16.151.079 0 .15-.055.158-.151l.221-2.688-.221-2.728c-.008-.096-.079-.151-.158-.151m.984.001c-.095 0-.172.063-.18.171l-.186 2.707.186 2.669c.008.108.085.171.18.171.094 0 .17-.063.178-.171l.21-2.669-.21-2.707c-.008-.108-.084-.171-.178-.171m1.022.001c-.103 0-.187.068-.195.19l-.176 2.688.176 2.65c.008.122.092.19.195.19.103 0 .186-.068.194-.19l.2-2.65-.2-2.688c-.008-.122-.091-.19-.194-.19m1.04.001c-.114 0-.204.075-.211.207l-.165 2.67.165 2.632c.007.132.097.207.211.207.114 0 .204-.075.21-.207l.186-2.632-.186-2.67c-.006-.132-.096-.207-.21-.207m1.044 0c-.125 0-.222.082-.227.227l-.156 2.65.156 2.613c.005.145.102.227.227.227.227s.22-.082.225-.227l.176-2.613-.176-2.65c-.005-.145-.1-.227-.225-.227m1.045-.001c-.135 0-.238.088-.243.244l-.146 2.634.146 2.596c.005.156.108.244.243.244.134 0 .237-.088.242-.244l.164-2.596-.164-2.634c-.005-.156-.108-.244-.242-.244m1.056.001c-.145 0-.255.096-.258.263l-.136 2.614.136 2.578c.003.167.113.263.258.263.146 0 .255-.096.26-.263l.153-2.578-.153-2.614c-.005-.167-.114-.263-.26-.263m.72-.007c-.007-.168-.12-.27-.273-.273-.153 0-.266.102-.27.27l-.127 2.884.127 2.559c.004.168.117.27.27.27.153 0 .266-.102.273-.27v.001l.143-2.559-.143-2.885m.755.008c-.004-.183-.126-.285-.286-.285-.16 0-.282.102-.286.285l-.117 2.876.117 2.552c.004.183.126.286.286.286.16 0 .282-.103.286-.286l.134-2.552-.134-2.876m.787.016c-.004-.194-.132-.301-.3-.301-.167 0-.294.107-.298.301l-.109 2.86.109 2.545c.004.194.131.301.298.301.168 0 .296-.107.3-.301l.123-2.545-.123-2.86m3.334 1.108c-.44 0-.86.088-1.241.244-.253-2.824-2.659-5.027-5.552-5.552-.717 0-1.416.143-2.035.404-.24.102-.304.205-.304.41v9.947c0 .214.17.388.382.404 9.023.669 10.75.095 10.75.095.204-.031.408-.196.408-.408v-5.661c0-.213-.172-.386-.386-.386-.002-.002-.022-.002-.022-.002"/>
+                        </svg>
+                        Follow on SoundCloud
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCZEMgri_jc2g_szBLEUzQWQ" target="_blank" class="platform-link youtube-link">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        Subscribe on YouTube
+                    </a>
                 </div>
 
-                <h2>ALL RELEASES</h2>
-                <div class="releases-grid" id="all-releases">
-                    <div class="loading">Loading releases...</div>
+                <div class="music-section">
+                    <h2>Featured Tracks</h2>
+                    <div class="youtube-tracks" id="tracks-container">
+                        <!-- Loading state -->
+                        <div id="loading-state" class="loading-state">
+                            Loading tracks...
+                        </div>
+                        <!-- Error state -->
+                        <div id="error-state" class="error-state" style="display: none;">
+                            Unable to load tracks. Please try again later.
+                        </div>
+                    </div>
                 </div>
+                <div id="audio-player"></div>
             </div>
         </div>
     </main>
@@ -234,106 +498,226 @@
         <p>&copy; 2025 KRYSTALIC. All rights reserved.</p>
     </footer>
 
+    <!-- Add YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Function to get Spotify track ID from album
-        async function getFirstTrackId(albumId) {
-            try {
-                // Get a fresh token if needed
-                const token = await getSpotifyToken();
-                localStorage.setItem('spotify_token', token);
+        // YouTube API configuration
+        const CHANNEL_ID = 'UCZEMgri_jc2g_szBLEUzQWQ';
+        const API_KEY = 'AIzaSyAZHDOejgnSkMUofRvwi7dg0s9s8npX0rc';
+        let audioPlayer;
 
-                const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
-                const data = await response.json();
-                return data.items[0]?.id;
-            } catch (error) {
-                console.error('Error fetching track:', error);
-                return null;
-            }
+        // Initialize audio player
+        function onYouTubeIframeAPIReady() {
+            audioPlayer = new YT.Player('audio-player', {
+                height: '0',
+                width: '0',
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'color': 'white',
+                    'theme': 'dark'
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
 
-        // Function to update the UI with release data
-        async function updateLatestRelease(release) {
-            const container = document.getElementById('latest-release');
-            if (!release) {
-                container.innerHTML = '<p>Could not load latest release.</p>';
-                return;
-            }
-
-            try {
-                // Get the album ID from the Spotify URL
-                const albumId = release.external_urls.spotify.split('/').pop();
-                const trackId = await getFirstTrackId(albumId);
-                const spotifyEmbed = trackId ? 
-                    `<iframe class="spotify-preview" src="https://open.spotify.com/embed/track/${trackId}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>` 
-                    : '';
-
-                container.innerHTML = `
-                    <div class="release-info">
-                        <img src="${release.images[0].url}" alt="${release.name}" class="release-cover">
-                        <div class="release-details">
-                            <h3>${release.name}</h3>
-                            <p class="release-date">Released: ${new Date(release.release_date).toLocaleDateString()}</p>
-                            ${spotifyEmbed}
+        // Display videos in grid
+        function displayVideos(videos) {
+            const container = document.getElementById('tracks-container');
+            container.innerHTML = '';
+            
+            videos.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'track-card';
+                card.dataset.videoId = video.id.videoId;
+                card.innerHTML = `
+                    <img class="track-thumbnail" src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                    <div class="track-info">
+                        <h3 class="track-title">${video.snippet.title}</h3>
+                        <div class="track-date">${new Date(video.snippet.publishedAt).toLocaleDateString()}</div>
+                    </div>
+                    <div class="track-controls">
+                        <button class="control-button play-pause">
+                            <svg viewBox="0 0 24 24" class="play-icon">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg viewBox="0 0 24 24" class="pause-icon" style="display: none;">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        </button>
+                        <div class="timeline">
+                            <div class="timeline-progress"></div>
                         </div>
+                        <div class="duration">0:00</div>
                     </div>
                 `;
-            } catch (error) {
-                console.error('Error updating latest release:', error);
-                container.innerHTML = '<p>Error loading release data.</p>';
+
+                // Add click handler for play/pause button
+                const playPauseBtn = card.querySelector('.play-pause');
+                const playIcon = playPauseBtn.querySelector('.play-icon');
+                const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+                const timeline = card.querySelector('.timeline');
+                const progress = card.querySelector('.timeline-progress');
+                const duration = card.querySelector('.duration');
+
+                playPauseBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card click
+                    const currentlyPlaying = document.querySelector('.track-card.playing');
+                    if (currentlyPlaying === card) {
+                        // Toggle play/pause if clicking the same card
+                        if (audioPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+                            audioPlayer.pauseVideo();
+                        } else {
+                            audioPlayer.playVideo();
+                        }
+                    } else {
+                        // Play new track
+                        if (currentlyPlaying) {
+                            currentlyPlaying.classList.remove('playing');
+                            resetControls(currentlyPlaying);
+                        }
+                        card.classList.add('playing');
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'block';
+                        audioPlayer.loadVideoById({
+                            videoId: video.id.videoId,
+                            suggestedQuality: 'small'
+                        });
+                    }
+                });
+
+                // Add timeline click handler
+                timeline.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card click
+                    if (card.classList.contains('playing')) {
+                        const rect = timeline.getBoundingClientRect();
+                        const pos = (e.clientX - rect.left) / rect.width;
+                        const duration = audioPlayer.getDuration();
+                        audioPlayer.seekTo(duration * pos, true);
+                    }
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        // Reset controls to initial state
+        function resetControls(card) {
+            const playIcon = card.querySelector('.play-icon');
+            const pauseIcon = card.querySelector('.pause-icon');
+            const progress = card.querySelector('.timeline-progress');
+            const duration = card.querySelector('.duration');
+            
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            progress.style.width = '0%';
+            duration.textContent = '0:00';
+        }
+
+        // Format time in MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Handle player state changes
+        function onPlayerStateChange(event) {
+            const currentlyPlaying = document.querySelector('.track-card.playing');
+            
+            if (event.data === YT.PlayerState.ENDED) {
+                if (currentlyPlaying) {
+                    currentlyPlaying.classList.remove('playing');
+                    resetControls(currentlyPlaying);
+                }
+                playNextTrack();
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                if (currentlyPlaying) {
+                    const playIcon = currentlyPlaying.querySelector('.play-icon');
+                    const pauseIcon = currentlyPlaying.querySelector('.pause-icon');
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+            } else if (event.data === YT.PlayerState.PLAYING) {
+                if (currentlyPlaying) {
+                    const playIcon = currentlyPlaying.querySelector('.play-icon');
+                    const pauseIcon = currentlyPlaying.querySelector('.pause-icon');
+                    const duration = currentlyPlaying.querySelector('.duration');
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                    duration.textContent = formatTime(audioPlayer.getDuration());
+                    
+                    // Update progress bar
+                    updateProgressBar();
+                }
             }
         }
 
-        // Function to update the UI with all releases
-        async function updateAllReleases(releases) {
-            const container = document.getElementById('all-releases');
-            if (!releases || releases.length === 0) {
-                container.innerHTML = '<p>No releases found.</p>';
-                return;
-            }
-
-            try {
-                const releasesHtml = await Promise.all(releases.map(async release => {
-                    const albumId = release.external_urls.spotify.split('/').pop();
-                    const trackId = await getFirstTrackId(albumId);
-                    const spotifyEmbed = trackId ? 
-                        `<iframe class="spotify-preview" src="https://open.spotify.com/embed/track/${trackId}" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>` 
-                        : '';
-
-                    return `
-                        <div class="release-card">
-                            <img src="${release.images[0].url}" alt="${release.name}">
-                            <h3>${release.name}</h3>
-                            <div class="release-date">Released: ${new Date(release.release_date).toLocaleDateString()}</div>
-                            ${spotifyEmbed}
-                        </div>
-                    `;
-                }));
-
-                container.innerHTML = releasesHtml.join('');
-            } catch (error) {
-                console.error('Error updating all releases:', error);
-                container.innerHTML = '<p>Error loading releases.</p>';
+        // Update progress bar
+        function updateProgressBar() {
+            const currentlyPlaying = document.querySelector('.track-card.playing');
+            if (currentlyPlaying && audioPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+                const progress = currentlyPlaying.querySelector('.timeline-progress');
+                const duration = currentlyPlaying.querySelector('.duration');
+                const currentTime = audioPlayer.getCurrentTime();
+                const totalTime = audioPlayer.getDuration();
+                const percentage = (currentTime / totalTime) * 100;
+                
+                progress.style.width = `${percentage}%`;
+                duration.textContent = formatTime(totalTime - currentTime);
+                
+                requestAnimationFrame(updateProgressBar);
             }
         }
 
-        // Fetch and display releases when the page loads
-        document.addEventListener('DOMContentLoaded', async () => {
+        // Play next track
+        function playNextTrack() {
+            const currentlyPlaying = document.querySelector('.track-card.playing');
+            if (currentlyPlaying) {
+                const nextTrack = currentlyPlaying.nextElementSibling;
+                if (nextTrack && nextTrack.classList.contains('track-card')) {
+                    nextTrack.click();
+                }
+            }
+        }
+
+        // Fetch videos from channel
+        async function fetchVideos() {
+            const loadingState = document.getElementById('loading-state');
+            const errorState = document.getElementById('error-state');
+
             try {
-                const releases = await getAllReleases();
-                if (releases && releases.length > 0) {
-                    updateLatestRelease(releases[0]);
-                    updateAllReleases(releases);
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=12&type=video`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                loadingState.style.display = 'none';
+                errorState.style.display = 'none';
+                
+                if (data.items && data.items.length > 0) {
+                    displayVideos(data.items);
+                } else {
+                    throw new Error('No videos found');
                 }
             } catch (error) {
-                console.error('Error initializing page:', error);
-                document.getElementById('latest-release').innerHTML = '<p>Error loading releases.</p>';
-                document.getElementById('all-releases').innerHTML = '<p>Error loading releases.</p>';
+                console.error('Error fetching videos:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                errorState.textContent = 'Unable to load tracks. Please try again later.';
             }
-        });
+        }
+
+        // Start fetching videos when page loads
+        document.addEventListener('DOMContentLoaded', fetchVideos);
     </script>
     <script src="../script.js"></script>
 </body>
