@@ -124,12 +124,39 @@
             transform: translateY(-5px);
         }
 
-        .track-thumbnail {
+        .track-thumbnail-container {
+            position: relative;
             width: 100%;
             aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .track-thumbnail {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            transition: filter 0.3s ease;
-            border-radius: 0;
+            transition: all 0.5s ease;
+            transform: scale(1.05);
+        }
+
+        .track-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(20, 20, 20, 0.6) 50%,
+                rgba(0, 0, 0, 0.7) 100%
+            );
+            mix-blend-mode: multiply;
+            transition: opacity 0.3s ease;
+        }
+
+        .track-card:hover .track-thumbnail {
+            transform: scale(1.1);
         }
 
         .track-info {
@@ -671,7 +698,10 @@
                 card.className = 'track-card';
                 card.dataset.videoId = video.id.videoId;
                 card.innerHTML = `
-                    <img class="track-thumbnail" src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                    <div class="track-thumbnail-container">
+                        <img class="track-thumbnail" src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                        <div class="track-overlay"></div>
+                    </div>
                     <div class="track-info">
                         <h3 class="track-title">${video.snippet.title}</h3>
                         <div class="track-date">${new Date(video.snippet.publishedAt).toLocaleDateString()}</div>
@@ -991,6 +1021,20 @@
                 }
             `;
             document.head.appendChild(style);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcons = mobileMenuButton.querySelectorAll('svg');
+
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                menuIcons.forEach(icon => icon.classList.toggle('hidden'));
+            });
         });
     </script>
     <script src="../script.js"></script>
