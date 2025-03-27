@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Hamburger Menu
+    // Hamburger Menu Toggle
     const hamburger = document.querySelector('.hamburger');
     const mobileNav = document.querySelector('.mobile-nav');
     const body = document.body;
@@ -87,30 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger && mobileNav) {
         hamburger.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Toggle active states
+            e.stopPropagation();
             hamburger.classList.toggle('active');
             mobileNav.classList.toggle('active');
-            
-            // Toggle body scroll
-            if (mobileNav.classList.contains('active')) {
-                body.style.overflow = 'hidden';
-            } else {
-                body.style.overflow = '';
-            }
-        });
-
-        // Close mobile menu when clicking a link
-        const mobileLinks = mobileNav.querySelectorAll('.nav-links a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                // Add a small delay to allow for the navigation to happen
-                setTimeout(() => {
-                    hamburger.classList.remove('active');
-                    mobileNav.classList.remove('active');
-                    body.style.overflow = '';
-                }, 150);
-            });
+            hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
+            body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
         });
 
         // Close mobile menu when clicking outside
@@ -120,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 !hamburger.contains(e.target)) {
                 hamburger.classList.remove('active');
                 mobileNav.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 body.style.overflow = '';
             }
         });
@@ -129,8 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 mobileNav.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 body.style.overflow = '';
             }
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileNav.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                body.style.overflow = '';
+            });
         });
     }
 
@@ -139,6 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Remove the observer after first animation
+                observer.unobserve(entry.target);
+                
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
                 
