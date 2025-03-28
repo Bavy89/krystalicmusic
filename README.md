@@ -21,8 +21,6 @@ Hey! I'm Krystalic from the duo Vast Duality. I am producing Euphoric Hardstyle 
 
 - [Live Website](https://krystalicmusic.vercel.app/)
 - [SoundCloud](https://soundcloud.com/officialkrystalic)
-- [Instagram](https://instagram.com/krystalic)
-- [X (Twitter)](https://twitter.com/krystalic)
 
 ## 🛠️ Built With
 
